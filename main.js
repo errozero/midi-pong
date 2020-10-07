@@ -203,7 +203,8 @@ var game = {
 
 	moveCpuPlayer: function(){
 
-		if(game.ballAttached === 0 || game.ballOut || game.ballPos.x < (game.canvasSize.x/2)) return;
+		//if(game.ballAttached === 0 || game.ballOut || game.ballPos.x < (game.canvasSize.x/8)) return;
+		if(game.ballAttached === 0 || game.ballOut) return;
 		
 		if(game.ballAttached ===1){
 
@@ -214,44 +215,14 @@ var game = {
 		}
 
 		else {
-
 			//Move the paddle
-
-			//Get percentage of ball height
-			var ballPos = game.ballPos.y;
 			var ballPercent = (game.ballPos.y / game.canvasSize.y) * 100;
 			var midiBallPos = (127 / 100) * ballPercent;
-
-			var paddlePos = game.paddlePos[1];
-			var paddlePosHeightPercent = ( (game.paddleHeight) / game.canvasSize.y)*100;
-			var paddlePosHeightMidi = ((127/100) * paddlePosHeightPercent);
-
-			var newPaddlePos = paddlePos;
-
-			var difference = -((paddlePos) - (midiBallPos) - 20 );
-
-			var midiSpeedPercent = (game.ballSpeed / game.canvasSize.y) * 100;
-			
-			
-			maxSpeed = ((127/100)*midiSpeedPercent) / 1.05;
-			//maxSpeed = ((127/100)*midiSpeedPercent) / 1;
-			//maxSpeed = 5;
-			
-			var maxInvert = -Math.abs(maxSpeed);
-
-			if(difference > maxSpeed){
-				difference = maxSpeed;
-			}
-			else if(difference < maxInvert){
-				difference = maxInvert;
-			}
-
-			newPaddlePos+=difference;
+			var newPaddlePos = midiBallPos;
 
 			newPaddlePos = 127 - newPaddlePos;
 
 			game.setPaddlePos(1, newPaddlePos);
-
 		}
 
 	},
